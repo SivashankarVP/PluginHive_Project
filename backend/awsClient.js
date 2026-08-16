@@ -2,6 +2,9 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, PutCommand, ScanCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
+import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
+import { createClient } from "redis";
 import fs from "fs";
 import path from "path";
 
@@ -12,6 +15,9 @@ const region = process.env.AWS_REGION || "us-east-1";
 let dynamoDocClient = null;
 let s3Client = null;
 let sesClient = null;
+let sqsClient = null;
+let snsClient = null;
+export let redisClient = null;
 
 if (!useMock) {
   const config = {
@@ -25,6 +31,8 @@ if (!useMock) {
   dynamoDocClient = DynamoDBDocumentClient.from(dbClient);
   s3Client = new S3Client(config);
   sesClient = new SESClient(config);
+  sqsClient = new SQSClient(config);
+  snsClient = new SNSClient(config);
   console.log("AWS Clients Initialized in Production/Cloud Mode");
 } else {
   console.log("AWS Clients Initialized in Local/Mock Mode");
@@ -48,6 +56,27 @@ const writeLocalDb = (data) => {
     console.error("Error writing mock database:", error);
   }
 };
+
+// Initialize Redis
+if (!useMock) {
+  redisClient = createClient({
+    url: process.env.REDIS_URL || 'redis://localhost:6379'
+  });
+  redisClient.on('error', (err) => console.log('Redis Client Error', err));
+  redisClient.connect().then(() => console.log('Connected to Redis')).catch(console.error);
+} else {
+  // Simple in-memory cache mock
+  const memoryCache = new Map();
+  redisClient = {
+    get: async (key) => memoryCache.get(key) || null,
+    setEx: async (key, seconds, value) => {
+      memoryCache.set(key, value);
+      setTimeout(() => memoryCache.delete(key), seconds * 1000);
+      return 'OK';
+    }
+  };
+  console.log("[REDIS MOCK] Initialized in-memory cache");
+}
 
 // Interface wrapper to handle both real AWS and local fallback transparently
 export const db = {
@@ -175,4 +204,34 @@ export const ses = {
       console.log(`Content:\n${bodyHtml}`);
     }
   },
+};
+
+export const sqs = {
+  sendOrderMessage: async (orderData) => {
+    if (!useMock) {
+      const command = new SendMessageCommand({
+        QueueUrl: process.env.SQS_QUEUE_URL,
+        MessageBody: JSON.stringify(orderData),
+      });
+      await sqsClient.send(command);
+      console.log(`Order sent to SQS: ${orderData.id}`);
+    } else {
+      console.log(`[AWS SQS MOCK] Order ${orderData.id} pushed to mock queue.`);
+    }
+  },
+};
+
+export const sns = {
+  sendSMSNotification: async (phoneNumber, message) => {
+    if (!useMock) {
+      const command = new PublishCommand({
+        PhoneNumber: phoneNumber,
+        Message: message,
+      });
+      await snsClient.send(command);
+      console.log(`SMS sent via SNS to ${phoneNumber}`);
+    } else {
+      console.log(`[AWS SNS MOCK] SMS Notification sent to ${phoneNumber}:\n${message}`);
+    }
+  }
 };

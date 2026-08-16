@@ -278,3 +278,86 @@ output "assets_bucket_name" {
   value       = aws_s3_bucket.assets.id
   description = "S3 bucket for invoice storage"
 }
+
+# ==========================================
+# 5. SQS & SNS (ORDER PIPELINE)
+# ==========================================
+
+resource "aws_sqs_queue" "order_queue" {
+  name                      = "cravego-orders-queue"
+  delay_seconds             = 0
+  max_message_size          = 262144
+  message_retention_seconds = 86400
+  receive_wait_time_seconds = 0
+}
+
+resource "aws_sns_topic" "order_notifications" {
+  name = "cravego-order-notifications"
+}
+
+# ==========================================
+# 6. REDIS (ELASTICACHE)
+# ==========================================
+# Using default VPC for simplicity in MVP
+data "aws_vpc" "default" {
+  default = true
+}
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+
+resource "aws_elasticache_cluster" "redis" {
+  cluster_id           = "cravego-redis"
+  engine               = "redis"
+  node_type            = "cache.t3.micro"
+  num_cache_nodes      = 1
+  parameter_group_name = "default.redis7"
+  engine_version       = "7.0"
+  port                 = 6379
+}
+
+# ==========================================
+# 7. ECS FARGATE & ALB
+# ==========================================
+
+resource "aws_ecr_repository" "backend_repo" {
+  name                 = "cravego-backend"
+  image_tag_mutability = "MUTABLE"
+}
+
+resource "aws_ecs_cluster" "main" {
+  name = "cravego-cluster"
+}
+
+resource "aws_ecs_task_definition" "backend" {
+  family                   = "cravego-backend-task"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+  
+  container_definitions = jsonencode([
+    {
+      name      = "cravego-backend"
+      image     = "${aws_ecr_repository.backend_repo.repository_url}:latest"
+      essential = true
+      portMappings = [
+        {
+          containerPort = 5000
+          hostPort      = 5000
+        }
+      ]
+      environment = [
+        { name = "USE_AWS_MOCK", value = "false" },
+        { name = "SQS_QUEUE_URL", value = aws_sqs_queue.order_queue.url }
+      ]
+    }
+  ])
+}
+
+output "sqs_queue_url" {
+  value = aws_sqs_queue.order_queue.url
+}

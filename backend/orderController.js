@@ -1,4 +1,4 @@
-import { db, s3, ses } from "./awsClient.js";
+import { db, s3, ses, sqs } from "./awsClient.js";
 
 export const placeOrder = async (req, res) => {
   const { restaurantId, totalAmount, paymentMode, address, items } = req.body;
@@ -56,7 +56,14 @@ Thank you for ordering with CraveGo!
 
     await db.put({ TableName: "Orders", Item: newOrder });
 
-    // 4. Send Confirmation Email via AWS SES
+    // 4. Send Order Event to SQS for background processing
+    try {
+      await sqs.sendOrderMessage(newOrder);
+    } catch (sqsErr) {
+      console.warn("SQS push failed:", sqsErr.message);
+    }
+
+    // 5. Send Confirmation Email via AWS SES
     const emailBody = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
         <h2 style="color: #ff9800; text-align: center;">CraveGo Order Confirmed!</h2>
