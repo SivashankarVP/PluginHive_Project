@@ -1,0 +1,30 @@
+{
+  "users": [],
+  "restaurants": [
+    { "id": 1, "name": "McDonald's", "cuisineType": "Burgers, Fast Food, Beverages", "deliveryTime": "20-30 mins", "address": "Downtown Mall, Sector 4", "rating": 4.5, "imagePath": "Assets/logos/mcdonalds.png", "active": true },
+    { "id": 2, "name": "Burger King", "cuisineType": "Burgers, Fast Food, Sides", "deliveryTime": "25-35 mins", "address": "City Square Mall", "rating": 4.3, "imagePath": "Assets/logos/burgerking.png", "active": true },
+    { "id": 3, "name": "KFC", "cuisineType": "Fried Chicken, Burgers, Sides", "deliveryTime": "15-25 mins", "address": "Galleria Market", "rating": 4.4, "imagePath": "Assets/logos/kfc.png", "active": true },
+    { "id": 4, "name": "Wendy's", "cuisineType": "Burgers, Fast Food, Shakes", "deliveryTime": "20-30 mins", "address": "Main Street Plaza", "rating": 4.2, "imagePath": "Assets/logos/wendys.png", "active": true },
+    { "id": 5, "name": "Pizza Hut", "cuisineType": "Pizzas, Pasta, Desserts", "deliveryTime": "30-40 mins", "address": "Metropolitan Mall", "rating": 4.1, "imagePath": "Assets/logos/pizzahut.png", "active": true },
+    { "id": 6, "name": "Popeyes", "cuisineType": "Fried Chicken, Seafood, Biscuits", "deliveryTime": "25-35 mins", "address": "Grand Ave Shopping", "rating": 4.5, "imagePath": "Assets/logos/popeyes.png", "active": true },
+    { "id": 7, "name": "Domino's", "cuisineType": "Pizzas, Garlic Bread, Drinks", "deliveryTime": "20-30 mins", "address": "Express Corner", "rating": 4.6, "imagePath": "Assets/logos/dominos.png", "active": true },
+    { "id": 8, "name": "Subway", "cuisineType": "Sandwiches, Salads, Cookies", "deliveryTime": "15-25 mins", "address": "Food Court Level 2", "rating": 4.4, "imagePath": "Assets/logos/subway.png", "active": true },
+    { "id": 9, "name": "Starbucks", "cuisineType": "Coffee, Beverages, Snacks", "deliveryTime": "10-20 mins", "address": "Tech Park Block A", "rating": 4.7, "imagePath": "Assets/logos/starbucks.png", "active": true },
+    { "id": 10, "name": "Taco Bell", "cuisineType": "Tacos, Burritos, Mexican Fast Food", "deliveryTime": "20-30 mins", "address": "Central Mall", "rating": 4.2, "imagePath": "Assets/logos/tacobell.png", "active": true },
+    { "id": 11, "name": "California Burrito", "cuisineType": "Burritos, Bowls, Mexican", "deliveryTime": "25-35 mins", "address": "IT Park Food Street", "rating": 4.3, "imagePath": "Assets/logos/california.png", "active": true },
+    { "id": 12, "name": "Wow! Momo", "cuisineType": "Momos, Dumplings, Chinese", "deliveryTime": "20-30 mins", "address": "Railway Station Arcade", "rating": 4.1, "imagePath": "Assets/logos/wowmomo.png", "active": true },
+    { "id": 13, "name": "Chicking", "cuisineType": "Fried Chicken, Burgers, Pizzas", "deliveryTime": "25-35 mins", "address": "Metro Plaza", "rating": 4.0, "imagePath": "Assets/logos/chicking.png", "active": true },
+    { "id": 14, "name": "Faasos", "cuisineType": "Wraps, Rolls, Bowls", "deliveryTime": "20-30 mins", "address": "Cloud Kitchen Sector 1", "rating": 4.2, "imagePath": "Assets/logos/faasos.png", "active": true },
+    { "id": 15, "name": "Behrouz Biryani", "cuisineType": "Biryani, Kebabs, Desserts", "deliveryTime": "30-40 mins", "address": "Cloud Kitchen Sector 1", "rating": 4.5, "imagePath": "Assets/logos/behrouzbiryani.png", "active": true }
+  ],
+  "menu": [
+    { "id": 1, "restaurantId": 1, "itemName": "Double Cheese Burger", "description": "Two juicy patties with melted cheese and fresh veggies.", "price": 199, "oldPrice": 249, "category": "burger", "imagePath": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=60", "isAvailable": true, "veg": false },
+    { "id": 2, "restaurantId": 1, "itemName": "Crispy Veg Burger", "description": "Crunchy veg patty with creamy mayo and lettuce.", "price": 129, "oldPrice": 159, "category": "burger", "imagePath": "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500&auto=format&fit=crop&q=60", "isAvailable": true, "veg": true },
+    { "id": 3, "restaurantId": 1, "itemName": "Classic French Fries", "description": "Golden crispy potato fries with peri-peri seasoning.", "price": 99, "oldPrice": 129, "category": "fries", "imagePath": "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=500&auto=format&fit=crop&q=60", "isAvailable": true, "veg": true },
+    { "id": 4, "restaurantId": 1, "itemName": "Margherita Pizza", "description": "Classic cheese and tomato pizza.", "price": 299, "oldPrice": 349, "category": "pizza", "imagePath": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60", "isAvailable": true, "veg": true },
+    { "id": 5, "restaurantId": 1, "itemName": "Coke Zero", "description": "Refreshing zero sugar cola.", "price": 60, "oldPrice": 75, "category": "drinks", "imagePath": "https://images.unsplash.com/photo-1554866585-cd94860890b7?w=500&auto=format&fit=crop&q=60", "isAvailable": true, "veg": true },
+    { "id": 6, "restaurantId": 1, "itemName": "Chocolate Lava Cake", "description": "Warm chocolate cake with gooey center.", "price": 149, "oldPrice": 199, "category": "desserts", "imagePath": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=60", "isAvailable": true, "veg": true },
+    { "id": 7, "restaurantId": 2, "itemName": "Double Cheese Burger", "description": "Two juicy patties with melted cheese and fresh veggies.", "price": 199, "oldPrice": 249, "category": "burger", "imagePath": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=60", "isAvailable": true, "veg": false }
+  ],
+  "orders": []
+}
