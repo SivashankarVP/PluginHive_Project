@@ -16,11 +16,11 @@ Welcome to **CraveGo**, an enterprise-grade, multi-tier food delivery applicatio
 
 ### 🚀 Tech Stack
 
-**Frontend:** React.js, JavaScript, HTML5, CSS3, Tailwind CSS  
-**Backend:** Node.js, Java, Spring Boot, REST APIs  
-**Cloud:** AWS (EC2, S3, IAM)  
-**Database:** MySQL, SQLite  
-**Tools:** Git, GitHub, Docker, GitHub Actions
+**Frontend:** React, Vite, JavaScript (ES6+), HTML5, Vanilla CSS3, GSAP  
+**Backend:** Node.js, Express.js, REST APIs, JWT Authentication  
+**Cloud:** AWS (DynamoDB, S3, SES)  
+**Database:** Amazon DynamoDB  
+**Tools:** Git, GitHub
 
 ## 🚀 Getting Started
 
