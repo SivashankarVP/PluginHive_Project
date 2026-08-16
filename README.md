@@ -14,26 +14,13 @@ Welcome to **CraveGo**, an enterprise-grade, multi-tier food delivery applicatio
 *   📜 **User-Specific Order Isolation**: Strict data segregation ensuring users can only access their personal order history, alongside safe session teardowns on logout.
 *   ✨ **GSAP Micro-Animations**: High-end GreenSock Animation Platform (GSAP) integrations for fluid interactions, hover effects, and immersive particle aesthetics.
 
-## 🛠️ Technology Stack
+### 🚀 Tech Stack
 
-**Frontend Layer**
-*   **Framework**: React
-*   **Markup**: HTML5
-*   **Styling**: Vanilla CSS3 (Glassmorphism, CSS Variables)
-*   **Logic**: JavaScript ES6+
-*   **Animations**: GSAP, Particles.js
-
-**Backend Layer**
-*   **Runtime**: Node.js
-*   **Language**: JavaScript
-*   **Framework**: Express (or similar)
-*   **Architecture**: RESTful API
-
-**Database Layer**
-*   **RDBMS**: MySQL 8.0+
-
-**Cloud & Deployment**
-*   **Platform**: AWS
+**Frontend:** React.js, JavaScript, HTML5, CSS3, Tailwind CSS  
+**Backend:** Node.js, Java, Spring Boot, REST APIs  
+**Cloud:** AWS (EC2, S3, IAM)  
+**Database:** MySQL, SQLite  
+**Tools:** Git, GitHub, Docker, GitHub Actions
 
 ## 🚀 Getting Started
 
